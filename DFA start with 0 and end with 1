@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+#define STATES 2
+
+
+int transitionTable[STATES][2] = {
+    {1, 0}, 
+    {1, 1}  
+};
+
+bool isAccepted(char input[]) {
+    int currentState = 0; 
+    int inputLength = strlen(input);
+
+    for (int i = 0; i < inputLength; i++) {
+        char currentInput = input[i] - '0'; 
+        if (currentInput != 0 && currentInput != 1) {
+            return false;
+        }
+        currentState = transitionTable[currentState][currentInput];
+    }
+    return currentState == 1;
+}
+
+int main() {
+    char input[100];
+    printf("Enter the string: ");
+    scanf("%s", input);
+
+    if (isAccepted(input)) {
+        printf("Accepted: The string starts with 0 and ends with 1.\n");
+    } else {
+        printf("Not Accepted: The string does not start with 0 and end with 1.\n");
+    }
+
+    return 0;
+}
